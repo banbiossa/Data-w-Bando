@@ -1,0 +1,7 @@
+---
+title: "Bando Data team"
+output: html_document
+---
+# setup
+```{r setup}
+setwd("/Users/shotashimizu/git/Data Bando/")
