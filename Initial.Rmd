@@ -4,4 +4,15 @@ output: html_document
 ---
 # setup
 ```{r setup}
-setwd("/Users/shotashimizu/git/Data Bando/")
+setwd("/Users/shotashimizu/git/Data w Bando/")
+brand_id <- read.csv("data//brand_mst.csv", fileEncoding='cp932')
+maker_id <- read.csv("data//maker_mst.csv", fileEncoding='cp932')
+tanamae <- read.csv("data//Interest/Midee_interest_20140610_20150331.csv", fileEncoding='cp932')
+```
+
+# change everything into english
+mapvalues(x, from = c("beta", "gamma"), to = c("two", "three"))
+```{r jp output}
+head(tanamae)
+write.csv(unique(tanamae$maker), file = "maker_jp.csv", fileEncoding='cp932')
+write.csv(unique(tanamae$brandname), file = "brand_jp.csv", fileEncoding='cp932')
