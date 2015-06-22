@@ -16,3 +16,33 @@ mapvalues(x, from = c("beta", "gamma"), to = c("two", "three"))
 head(tanamae)
 write.csv(unique(tanamae$maker), file = "maker_jp.csv", fileEncoding='cp932')
 write.csv(unique(tanamae$brandname), file = "brand_jp.csv", fileEncoding='cp932')
+write.csv(unique(tanamae$itemname), file = "item_jp.csv", fileEncoding='cp932')
+```
+
+- What i want to do
+mapvalues(x, from = c("beta", "gamma"), to = c("two", "three"))
+new_maker = read.csv("maker_jp.csv")
+mapvalues(tanamae$maker, from = unique(taname$maker), to = new_maker$EN)
+
+# put everything into english
+## category name
+```{r category english}
+unique(tanamae$category)
+require(plyr)
+category_en <- mapvalues(tanamae$category, unique(tanamae$category), c("rinse","shampoo","treatment","other"))
+tanamae$category <- category_en
+require(dplyr)
+tanamae$categoryname <- NULL
+```
+
+## maker names
+```{r maker english}
+as.numeric.factor <- function(x) {as.numeric(levels(x))[x]}
+names <- read.csv("data/Interest/maker_jp_en.csv", fileEncoding='cp932')
+names(names) <- c("id", "jp", "en")
+names[] <- lapply(names, as.character)
+maker_en <- mapvalues(tanamae$maker, names$jp, names$en)
+tanamae$maker <- maker_en
+```
+
+## brand names
